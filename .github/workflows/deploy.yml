@@ -1,0 +1,58 @@
+name: Test and Deploy Super Vetro
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # Job 1: Validar Qualidade do Código
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for HTML Errors
+        run: |
+          # Simples check de sintaxe básica ou linter
+          echo "Validando estrutura do index.html..."
+          grep -q "<!DOCTYPE html>" index.html || exit 1
+          echo "Estrutura básica validada."
+
+      - name: Verify Assets Structure
+        run: |
+          # Garante que os arquivos modularizados existem
+          ls assets/css/main.css
+          ls assets/js/animations.js
+          ls assets/js/main.js
+
+  # Job 2: Deploy para GitHub Pages (apenas se o validate passar e for no push)
+  deploy:
+    needs: validate
+    if: github.event_name == 'push'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
