@@ -129,10 +129,21 @@ img {
     background: linear-gradient(135deg, #84bfd4, var(--primary));
 }
 
+.btn-nav-cta {
+    padding: 10px 24px;
+    margin-left: 16px;
+    font-size: 0.9rem;
+}
+
+.btn-full {
+    width: 100%;
+}
+
 .btn-secondary {
     background: transparent;
     border-color: var(--border);
     color: var(--text-main);
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
 
@@ -150,8 +161,8 @@ header {
     height: var(--header-h);
     z-index: 100;
     background: var(--glass-bg);
-    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     transition: transform 0.4s var(--transition);
 }
@@ -288,7 +299,7 @@ header {
     line-height: 1;
     letter-spacing: -0.02em;
     margin-bottom: 32px;
-    text-wrap: balance;
+    margin-bottom: 32px;
 }
 
 .hero p.subtitle {
@@ -317,8 +328,8 @@ header {
 
 .feature-card {
     background: rgba(15, 20, 26, 0.8);
-    backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 40px;
@@ -589,8 +600,8 @@ footer {
     right: 32px;
     background: rgba(37, 211, 102, 0.15);
     border: 1px solid rgba(37, 211, 102, 0.3);
-    backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
     color: #fff;
     padding: 14px 28px;
     border-radius: 99px;
@@ -679,8 +690,8 @@ footer {
     position: absolute;
     inset: 0;
     background: rgba(5, 8, 12, 0.85);
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 
 .modal-container {
@@ -748,6 +759,12 @@ footer {
     color: var(--text-muted);
 }
 
+.grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
 .form-control {
     width: 100%;
     background: rgba(255, 255, 255, 0.03);
@@ -803,6 +820,11 @@ textarea.form-control {
     height: 32px;
     fill: var(--primary);
     opacity: 0.7;
+}
+
+.upload-hint {
+    color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
 .file-name {

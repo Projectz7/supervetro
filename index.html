@@ -1,61 +1,874 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Super Vetro | Esquadrias de Alumínio para Projetos de Alto Padrão</title>
-    <meta name="description" content="Esquadrias de alumínio, soluções acústicas, fabricação sob medida e instalação especializada para projetos residenciais e corporativos de alto padrão." />
-
+    <meta name="description"
+        content="Esquadrias de alumínio, soluções acústicas, fabricação sob medida e instalação especializada para projetos residenciais e corporativos de alto padrão." />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <!-- GSAP & Lenis for animations and smooth scrolling -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            /* Colors */
+            --bg-deep: #05080c;
+            --bg-soft: #0a0f16;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.06);
+            --primary: #6fafc7;
+            --primary-light: #94cbe0;
+            --text-main: #f5f7f8;
+            --text-muted: #9ba4ae;
+            --glass-bg: rgba(10, 15, 22, 0.65);
+            /* Sizing */
+            --header-h: 90px;
+            --container: 1280px;
+            --radius-lg: 32px;
+            --radius-md: 20px;
+            /* Effects */
+            --shadow-subtle: 0 20px 40px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 40px rgba(111, 175, 199, 0.15);
+            --transition: cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
-    <!-- SEO Premium & JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Super Vetro",
-      "image": "https://images.unsplash.com/photo-1511818966892-d7d671e672a2",
-      "@id": "https://supervetro.com.br",
-      "url": "https://supervetro.com.br",
-      "telephone": "+5571993976185",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Salvador",
-        "addressRegion": "BA",
-        "addressCountry": "BR"
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "08:00",
-        "closes": "18:00"
-      },
-      "sameAs": [
-        "https://www.instagram.com/supervetro"
-      ]
-    }
-    </script>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- App Styles -->
-    <link rel="stylesheet" href="assets/css/main.css" />
+        html {
+            font-size: 16px;
+        }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Lenis Smooth Scroll Setup */
+        html.lenis {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
+        /* Premium Texture Overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        .playfair {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Layout */
+        .container {
+            width: min(var(--container), 100% - 48px);
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        /* UI Elements */
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.8rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary));
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition), background 0.4s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), #84bfd4);
+            color: var(--bg-deep);
+            box-shadow: 0 8px 24px rgba(111, 175, 199, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(111, 175, 199, 0.4);
+            background: linear-gradient(135deg, #84bfd4, var(--primary));
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--text-main);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-h);
+            z-index: 100;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: transform 0.4s var(--transition);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo strong {
+            font-size: 1.3rem;
+            letter-spacing: 0.3em;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: color 0.3s ease, background 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        /* Mobile Menu State */
+        .nav-links.mobile-active {
+            display: flex !important;
+            position: fixed;
+            inset: var(--header-h) 0 0 0;
+            background: var(--bg-deep);
+            flex-direction: column;
+            padding: 40px;
+            gap: 20px;
+            z-index: 99;
+            transform: translateY(-10px);
+            opacity: 0;
+            animation: mobileMenuIn 0.4s var(--transition) forwards;
+        }
+
+        @keyframes mobileMenuIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-links.mobile-active .nav-link {
+            font-size: 1.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .nav-links.mobile-active .btn {
+            width: 100%;
+            margin: 20px 0 0 0 !important;
+            padding: 20px;
+            font-size: 1.1rem;
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: var(--header-h);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            transform: scale(1.05);
+            /* animation will handle scale down */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(111, 175, 199, 0.15) 0%, transparent 50%),
+                linear-gradient(90deg, var(--bg-deep) 0%, rgba(5, 8, 12, 0.7) 50%, var(--bg-deep) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            gap: 40px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 6rem);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 32px;
+            text-wrap: balance;
+        }
+
+        .hero p.subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: -60px;
+            /* Overlap hero */
+            position: relative;
+            z-index: 10;
+        }
+
+        .feature-card {
+            background: rgba(15, 20, 26, 0.8);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            transition: transform 0.5s var(--transition), border-color 0.5s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(111, 175, 199, 0.3);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .feature-index {
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 24px;
+            opacity: 0.8;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Solutions Section */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .solution-card {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            group: hover;
+        }
+
+        .solution-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s var(--transition);
+            z-index: -2;
+        }
+
+        .solution-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 20%, rgba(5, 8, 12, 0.9) 100%);
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .solution-card:hover .solution-bg {
+            transform: scale(1.08);
+        }
+
+        .solution-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .solution-tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .solution-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .solution-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s var(--transition);
+        }
+
+        .solution-card:hover p {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+
+        /* Section Title Block */
+        .title-block {
+            max-width: 760px;
+            margin-bottom: 80px;
+        }
+
+        .title-block h2 {
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        /* Dual Block (Text + Image) */
+        .dual-block {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .dual-image {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            border: 1px solid var(--border);
+        }
+
+        .dual-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .specification-list {
+            display: grid;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .spec-item {
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: border-color 0.3s ease;
+        }
+
+        .spec-item:hover {
+            border-color: var(--primary);
+        }
+
+        .spec-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .spec-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Tech Specs Grid */
+        .grid-style {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .spec-box {
+            padding: 32px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+        }
+
+        .spec-box h4 {
+            color: var(--primary-light);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .spec-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .spec-box:hover {
+            border-color: var(--primary);
+            background: rgba(111, 175, 199, 0.05);
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 140px 0;
+            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-soft) 100%);
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(111, 175, 199, 0.1) 0%, transparent 60%);
+            filter: blur(40px);
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            margin-bottom: 24px;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            background: var(--bg-deep);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* WhatsApp Button */
+        .wa-btn {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            background: rgba(37, 211, 102, 0.15);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: #fff;
+            padding: 14px 28px;
+            border-radius: 99px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .wa-btn:hover {
+            background: rgba(37, 211, 102, 0.25);
+            border-color: rgba(37, 211, 102, 0.6);
+            transform: translateY(-4px);
+        }
+
+        .wa-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1024px) {
+
+            .features-grid,
+            .solutions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dual-block {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                /* Can implement mobile menu later if requested */
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .features-grid,
+            .solutions-grid {
+                grid-template-columns: 1fr;
+                margin-top: 40px;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .eyebrow {
+                justify-content: center;
+                width: 100%;
+            }
+
+            .wa-btn span {
+                display: none;
+            }
+
+            .wa-btn {
+                padding: 16px;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(5, 8, 12, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .modal-container {
+            position: relative;
+            background: var(--bg-soft);
+            width: 100%;
+            max-width: 600px;
+            padding: 48px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.5s var(--transition);
+            margin: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-container {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .modal-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            border-radius: 12px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .file-upload {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            padding: 32px;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.01);
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+            text-align: center;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-light);
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--primary);
+            opacity: 0.7;
+        }
+
+        .file-name {
+            font-size: 0.85rem;
+            color: var(--primary-light);
+            margin-top: 8px;
+            word-break: break-all;
+        }
+    </style>
 </head>
-<body>
 
+<body>
     <!-- Header -->
     <header id="header">
         <div class="container header-inner">
@@ -68,37 +881,37 @@
                 <a href="#solucoes" class="nav-link">Soluções</a>
                 <a href="#engenharia" class="nav-link">Engenharia</a>
                 <a href="#especificacoes" class="nav-link">Especificações</a>
-                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary" style="padding: 10px 24px; margin-left: 16px; font-size: 0.9rem;">Orçamento</a>
+                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary"
+                    style="padding: 10px 24px; margin-left: 16px; font-size: 0.9rem;">Orçamento</a>
             </nav>
             <button class="menu-btn" id="menuToggle" aria-label="Abrir menu" onclick="toggleMobileMenu()">☰</button>
         </div>
     </header>
-
     <!-- Floating WhatsApp -->
-    <a href="https://wa.me/5571993976185?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20as%20esquadrias%20de%20alto%20padrão." 
-       class="wa-btn" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       aria-label="Falar no WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <a href="https://wa.me/5571993976185?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20as%20esquadrias%20de%20alto%20padrão."
+        class="wa-btn" target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
+        <svg viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.94 3.659 1.437 5.63 1.438h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
         <span>Fale com o Comercial</span>
     </a>
-
     <main>
         <!-- Hero -->
         <section class="hero">
             <div class="hero-bg" id="hero-img">
-                <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1920&q=80" alt="Fachada com esquadrias de alto padrão" role="presentation" />
+                <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1920&q=80"
+                    alt="Fachada com esquadrias de alto padrão" role="presentation" />
             </div>
             <div class="hero-overlay"></div>
-            
+
             <div class="container hero-content">
                 <div class="gsap-hero">
                     <span class="eyebrow">Arquitetura Integrada</span>
                     <h1>Esquadrias de alumínio para projetos de alto padrão</h1>
                     <p class="subtitle">
-                        Minimalismo estético aliado à máxima performance termoacústica. 
-                        Concebemos soluções em vidro e alumínio para arquitetura contemporânea, 
+                        Minimalismo estético aliado à máxima performance termoacústica.
+                        Concebemos soluções em vidro e alumínio para arquitetura contemporânea,
                         onde cada milímetro é pensado para entregar perfeição.
                     </p>
                     <div class="hero-actions">
@@ -108,7 +921,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Diferenciais -->
         <section class="section" id="diferenciais" style="padding-top: 0;">
             <div class="container">
@@ -116,22 +928,24 @@
                     <article class="feature-card fade-up">
                         <div class="feature-index">01</div>
                         <h3>Design Minimalista</h3>
-                        <p>Perfis ultrafinos, superfícies limpas e total integração visual. Desenvolvidos meticulosamente para a valorização da arquitetura e entrada generosa de luz natural.</p>
+                        <p>Perfis ultrafinos, superfícies limpas e total integração visual. Desenvolvidos
+                            meticulosamente para a valorização da arquitetura e entrada generosa de luz natural.</p>
                     </article>
                     <article class="feature-card fade-up">
                         <div class="feature-index">02</div>
                         <h3>Rigor Técnico Absoluto</h3>
-                        <p>Foco sistemático na vedação termoacústica e ancoragem estrutural segura. Garantimos longevidade superior e estrita conformidade com normas técnicas vigentes.</p>
+                        <p>Foco sistemático na vedação termoacústica e ancoragem estrutural segura. Garantimos
+                            longevidade superior e estrita conformidade com normas técnicas vigentes.</p>
                     </article>
                     <article class="feature-card fade-up">
                         <div class="feature-index">03</div>
                         <h3>Engenharia Premium</h3>
-                        <p>Matéria-prima de ponta, usinagem milimétrica e equipes de execução próprias altamente qualificadas. Não adotamos atalhos no processo construtivo.</p>
+                        <p>Matéria-prima de ponta, usinagem milimétrica e equipes de execução próprias altamente
+                            qualificadas. Não adotamos atalhos no processo construtivo.</p>
                     </article>
                 </div>
             </div>
         </section>
-
         <!-- Soluções -->
         <section class="section" id="solucoes">
             <div class="container">
@@ -139,70 +953,77 @@
                     <span class="eyebrow">Portfólio de Soluções</span>
                     <h2>Sistemas desenvolvidos para as mais exigentes especificações</h2>
                 </div>
-
                 <div class="solutions-grid">
                     <a href="#" class="solution-card fade-up">
-                        <div class="solution-bg" style="background-image: url('https://69ce88e456508b5dd5d65519.imgix.net/projeto-cadas-arquitetura-piracaia-36.jpg?auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="solution-bg"
+                            style="background-image: url('https://69ce88e456508b5dd5d65519.imgix.net/projeto-cadas-arquitetura-piracaia-36.jpg?auto=format&fit=crop&w=800&q=80');">
+                        </div>
                         <div class="solution-overlay"></div>
                         <div class="solution-content">
                             <span class="solution-tag">Linha Minimalista</span>
                             <h3>Transparência e Amplitude</h3>
-                            <p>Ocultação quase total dos perfis nas alvenarias. O foco é deslocado do alumínio para o vidro e a paisagem.</p>
+                            <p>Ocultação quase total dos perfis nas alvenarias. O foco é deslocado do alumínio para o
+                                vidro e a paisagem.</p>
                         </div>
                     </a>
-
                     <a href="#" class="solution-card fade-up" style="transition-delay: 0.1s;">
-                        <div class="solution-bg" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="solution-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80');">
+                        </div>
                         <div class="solution-overlay"></div>
                         <div class="solution-content">
                             <span class="solution-tag">Linha Acústica</span>
                             <h3>Conforto e Isolamento</h3>
-                            <p>Sistemas robustos de vedação e composição de vidros duplos garantem máxima redução de ruído e conforto térmico.</p>
+                            <p>Sistemas robustos de vedação e composição de vidros duplos garantem máxima redução de
+                                ruído e conforto térmico.</p>
                         </div>
                     </a>
-
                     <a href="#" class="solution-card fade-up" style="transition-delay: 0.2s;">
-                        <div class="solution-bg" style="background-image: url('https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="solution-bg"
+                            style="background-image: url('https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=800&q=80');">
+                        </div>
                         <div class="solution-overlay"></div>
                         <div class="solution-content">
                             <span class="solution-tag">Revestimentos</span>
                             <h3>Ripados e Brises</h3>
-                            <p>Estruturas em alumínio que agregam textura, privacidade e controle solar a fachadas imponentes.</p>
+                            <p>Estruturas em alumínio que agregam textura, privacidade e controle solar a fachadas
+                                imponentes.</p>
                         </div>
                     </a>
                 </div>
             </div>
         </section>
-
         <!-- Engenharia (Dual Block) -->
         <section class="section" id="engenharia">
             <div class="container dual-block">
                 <div class="fade-up">
                     <span class="eyebrow">Nossa Metodologia</span>
                     <h2>A excelência construída pelo domínio total do processo</h2>
-                    
+
                     <div class="specification-list">
                         <div class="spec-item">
                             <h4>Fabricação Inteligente</h4>
-                            <p>Equipe interna focada em projetos customizados. Da compatibilização à usinagem computadorizada, garantimos medidas infalíveis.</p>
+                            <p>Equipe interna focada em projetos customizados. Da compatibilização à usinagem
+                                computadorizada, garantimos medidas infalíveis.</p>
                         </div>
                         <div class="spec-item">
                             <h4>Instalação Própria Especializada</h4>
-                            <p>O desempenho acústico só é real se a instalação for perfeita. Não terceirizamos equipes de montagem.</p>
+                            <p>O desempenho acústico só é real se a instalação for perfeita. Não terceirizamos equipes
+                                de montagem.</p>
                         </div>
                         <div class="spec-item">
                             <h4>Manutenção e Longo Prazo</h4>
-                            <p>Entregamos sistemas projetados para durar décadas, com assistência e componentes disponíveis para o pós-obra.</p>
+                            <p>Entregamos sistemas projetados para durar décadas, com assistência e componentes
+                                disponíveis para o pós-obra.</p>
                         </div>
                     </div>
                 </div>
-
                 <div class="dual-image fade-up">
-                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1000&q=80" alt="Processo técnico de montagem e engenharia de precisão" />
+                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1000&q=80"
+                        alt="Processo técnico de montagem e engenharia de precisão" />
                 </div>
             </div>
         </section>
-
         <!-- Especificacoes de Base -->
         <section class="section" id="especificacoes">
             <div class="container">
@@ -210,48 +1031,53 @@
                     <span class="eyebrow">Componentes Premium</span>
                     <h2>A diferença material entre uma esquadria e uma obra prima</h2>
                 </div>
-
                 <div class="grid-style">
                     <article class="spec-box fade-up">
                         <h4>Aço Inox 304</h4>
-                        <p>Ancoragem mecanicamente segura contra intempéries. Resiste ativamente à oxidação, essencial em regiões litorâneas.</p>
+                        <p>Ancoragem mecanicamente segura contra intempéries. Resiste ativamente à oxidação, essencial
+                            em regiões litorâneas.</p>
                     </article>
                     <article class="spec-box fade-up">
                         <h4>Guarnições EPDM</h4>
-                        <p>Borrachas automotivas vulcanizadas de altíssima longevidade. Não ressecam nem comprometem a barreira termoacústica.</p>
+                        <p>Borrachas automotivas vulcanizadas de altíssima longevidade. Não ressecam nem comprometem a
+                            barreira termoacústica.</p>
                     </article>
                     <article class="spec-box fade-up">
                         <h4>Silicone Estrutural</h4>
-                        <p>Selamento de cura neutra de grau profissional. Mantém elasticidade, garantindo arremates impecáveis e blindagem contra água.</p>
+                        <p>Selamento de cura neutra de grau profissional. Mantém elasticidade, garantindo arremates
+                            impecáveis e blindagem contra água.</p>
                     </article>
                     <article class="spec-box fade-up">
                         <h4>Perfis Bi-tubulares</h4>
-                        <p>Design de extrusão com câmaras múltiplas. Previne torção sob força do vento e aumenta drasticamente o limite de vãos livres.</p>
+                        <p>Design de extrusão com câmaras múltiplas. Previne torção sob força do vento e aumenta
+                            drasticamente o limite de vãos livres.</p>
                     </article>
                     <article class="spec-box fade-up">
                         <h4>Fechos Multimarcas Premium</h4>
-                        <p>Roldanas blindadas de duplo rolamento para movimentação leve de caixilhos super pesados. Travamento de segurança multiponto.</p>
+                        <p>Roldanas blindadas de duplo rolamento para movimentação leve de caixilhos super pesados.
+                            Travamento de segurança multiponto.</p>
                     </article>
                     <article class="spec-box fade-up">
                         <h4>Pintura Eletrostática</h4>
-                        <p>Acabamentos arquitetônicos certificados em poliéster, garantindo retenção de brilho e resistência contra desbotamento ao longo de anos.</p>
+                        <p>Acabamentos arquitetônicos certificados em poliéster, garantindo retenção de brilho e
+                            resistência contra desbotamento ao longo de anos.</p>
                     </article>
                 </div>
             </div>
         </section>
-
         <!-- CTA Final -->
         <section class="cta-section" id="contato">
             <div class="cta-glow"></div>
             <div class="container cta-content fade-up">
                 <span class="eyebrow" style="justify-content: center; width: 100%;">Fale conosco</span>
                 <h2>Sua arquitetura exige uma execução inquestionável.</h2>
-                <p>Nossos engenheiros estão prontos para analisar suas plantas e propor soluções que materializam o conceito do seu projeto com segurança milimétrica.</p>
-                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary" style="padding: 20px 48px; font-size: 1.1rem;">Enviar Projeto para Análise</a>
+                <p>Nossos engenheiros estão prontos para analisar suas plantas e propor soluções que materializam o
+                    conceito do seu projeto com segurança milimétrica.</p>
+                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary"
+                    style="padding: 20px 48px; font-size: 1.1rem;">Enviar Projeto para Análise</a>
             </div>
         </section>
     </main>
-
     <!-- Footer -->
     <footer>
         <div class="container footer-content">
@@ -264,7 +1090,6 @@
             </div>
         </div>
     </footer>
-
     <!-- Modal de Orçamento -->
     <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
         <div class="modal-overlay" onclick="closeModal()"></div>
@@ -274,13 +1099,13 @@
                 <h3 id="modalTitle" class="playfair">Envie seu projeto</h3>
                 <p>Nossa equipe de engenharia receberá suas informações e entrará em contato prontamente.</p>
             </div>
-            
+
             <form id="projectForm" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
                     <label for="nome">Nome Completo *</label>
                     <input type="text" id="nome" class="form-control" required placeholder="Ex: João Silva" />
                 </div>
-                
+
                 <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                     <div>
                         <label for="email">E-mail *</label>
@@ -291,32 +1116,206 @@
                         <input type="tel" id="telefone" class="form-control" placeholder="(00) 00000-0000" />
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>Projeto Arquitetônico (PDF, DWG, Imagens)</label>
                     <div class="file-upload">
-                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                        <span style="color: var(--text-muted); font-size: 0.9rem;">Clique para selecionar ou arraste o arquivo</span>
-                        <input type="file" id="arquivo" onchange="updateFileName(this)" accept=".pdf,.dwg,.jpg,.png,.zip" />
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                        </svg>
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Clique para selecionar ou arraste o
+                            arquivo</span>
+                        <input type="file" id="arquivo" onchange="updateFileName(this)"
+                            accept=".pdf,.dwg,.jpg,.png,.zip" />
                         <div id="fileNameDisplay" class="file-name"></div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label for="mensagem">Detalhes Adicionais</label>
-                    <textarea id="mensagem" class="form-control" placeholder="Contextualize seu projeto, prazos ou especificações..."></textarea>
+                    <textarea id="mensagem" class="form-control"
+                        placeholder="Contextualize seu projeto, prazos ou especificações..."></textarea>
                 </div>
-
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Solicitação</button>
             </form>
         </div>
     </div>
-
     <!-- Scripts: Lógica e Animações -->
-    <!-- App Scripts -->
-    <script src="assets/js/animations.js"></script>
-    <script src="assets/js/form-handler.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script>
+        // --- DATA DINÂMICA FOOTER ---
+        /** 
+         * Atualiza o ano de copyright no rodapé 
+         * @returns {void}
+         */
+        document.getElementById('year').textContent = new Date().getFullYear();
+        // --- LENIS SMOOTH SCROLL ---
+        /**
+         * Inicializa o motor de smooth scrolling da biblioteca Lenis
+         */
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        // --- INICIALIZAÇÃO GSAP & SCROLLTRIGGER ---
+        gsap.registerPlugin(ScrollTrigger);
+        // Sincronizar Lenis c/ ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+        gsap.ticker.lagSmoothing(0);
+        // --- ANIMAÇÕES DE ENTRADA (HERO) ---
+        gsap.from(".gsap-hero > *", {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            stagger: 0.15,
+            ease: "power3.out",
+            delay: 0.2
+        });
+        // Parallax na imagem do Hero
+        gsap.to("#hero-img img", {
+            scale: 1,
+            scrollTrigger: {
+                trigger: ".hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
+        // --- ANIMAÇÕES AO ROLAR (FADE UP ELEMENTS) ---
+        const fadeElements = document.querySelectorAll('.fade-up');
 
+        fadeElements.forEach((el) => {
+            gsap.to(el, {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%", // Dispara quando o topo do elemento chega a 85% da tela
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+        // --- COMPORTAMENTO DO HEADER NO SCROLL ---
+        let lastScroll = 0;
+        const header = document.getElementById('header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll <= 0) {
+                header.style.transform = "translateY(0)";
+                return;
+            }
+            // Oculta header ao descer, revela ao subir
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                header.style.transform = "translateY(-100%)";
+            } else {
+                header.style.transform = "translateY(0)";
+            }
+            lastScroll = currentScroll;
+        });
+        // --- LÓGICA DO MODAL DE PROJETO ---
+        /** 
+         * Abre o modal evitando pular pro topo 
+         */
+        function openModal(e) {
+            if (e) e.preventDefault();
+            document.getElementById('projectModal').classList.add('active');
+            // Interrompe scroll por trás do modal
+            if (lenis) lenis.stop();
+        }
+        /** 
+         * Fecha o modal 
+         */
+        function closeModal() {
+            document.getElementById('projectModal').classList.remove('active');
+            if (lenis) lenis.start();
+        }
+        /**
+         * Atualiza o nome do arquivo selecionado na UI
+         */
+        function updateFileName(input) {
+            const display = document.getElementById('fileNameDisplay');
+            if (input.files && input.files.length > 0) {
+                display.textContent = input.files[0].name;
+            } else {
+                display.textContent = "";
+            }
+        }
+        /**
+         * Gerencia o envio do formulário 
+         * (Fallback atual usando mailto - Leia recomendação Web3Forms)
+         */
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const telefone = document.getElementById('telefone').value;
+            const mensagem = document.getElementById('mensagem').value;
+            const hasFile = document.getElementById('arquivo').files.length > 0;
+            const subject = encodeURIComponent("Novo Projeto para Análise - " + nome);
+            let bodyText = "Nome: " + nome + "\n";
+            bodyText += "E-mail: " + email + "\n";
+            bodyText += "Telefone: " + telefone + "\n\n";
+            bodyText += "Mensagem:\n" + mensagem + "\n\n";
+
+            if (hasFile) {
+                bodyText += "=========================================\n";
+                bodyText += "ATENÇÃO PARA O CLIENTE: Por limitações do navegador, \n";
+                bodyText += "o seu arquivo não pôde ser anexado automaticamente. \n";
+                bodyText += "Por favor, ANEXE SEU PROJETO MANUALMENTE neste e-mail antes de enviar!\n";
+                bodyText += "=========================================\n";
+                alert("O seu aplicativo de e-mail será aberto. Pelas limitações de segurança do navegador, você precisa anexar o arquivo do projeto manualmente no seu app de e-mail antes de enviar.");
+            }
+            const body = encodeURIComponent(bodyText);
+
+            // Abre cliente de email padrão
+            window.location.href = "mailto:supervetro.ssa@gmail.com?subject=" + subject + "&body=" + body;
+
+            closeModal();
+            document.getElementById('projectForm').reset();
+            document.getElementById('fileNameDisplay').textContent = '';
+        }
+        // --- LÓGICA DO MENU MOBILE ---
+        /**
+         * Alterna a visibilidade do menu em dispositivos móveis
+         */
+        function toggleMobileMenu() {
+            const nav = document.querySelector('.nav-links');
+            const btn = document.getElementById('menuToggle');
+            const isActive = nav.classList.toggle('mobile-active');
+
+            btn.textContent = isActive ? '✕' : '☰';
+
+            // Trava o scroll quando o menu está aberto
+            if (isActive) {
+                if (lenis) lenis.stop();
+            } else {
+                if (lenis) lenis.start();
+            }
+        }
+        // Fecha o menu ao clicar em um link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                const nav = document.querySelector('.nav-links');
+                if (nav.classList.contains('mobile-active')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
