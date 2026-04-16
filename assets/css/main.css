@@ -84,6 +84,18 @@ img {
     position: relative;
 }
 
+.pt-0 {
+    padding-top: 0 !important;
+}
+
+.center-full {
+    justify-content: center;
+    width: 100%;
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+
 /* UI Elements */
 .eyebrow {
     display: inline-flex;
@@ -137,6 +149,11 @@ img {
 
 .btn-full {
     width: 100%;
+}
+
+.btn-cta-large {
+    padding: 20px 48px;
+    font-size: 1.1rem;
 }
 
 .btn-secondary {
@@ -388,6 +405,10 @@ header {
     transition: transform 0.8s var(--transition);
     z-index: -2;
 }
+
+.solution-img-1 { background-image: url('https://69ce88e456508b5dd5d65519.imgix.net/projeto-cadas-arquitetura-piracaia-36.jpg?auto=format&fit=crop&w=800&q=80'); }
+.solution-img-2 { background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80'); }
+.solution-img-3 { background-image: url('https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=800&q=80'); }
 
 .solution-overlay {
     position: absolute;
