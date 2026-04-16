@@ -68,7 +68,7 @@
                 <a href="#solucoes" class="nav-link">Soluções</a>
                 <a href="#engenharia" class="nav-link">Engenharia</a>
                 <a href="#especificacoes" class="nav-link">Especificações</a>
-                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary btn-nav-cta">Orçamento</a>
+                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary" style="padding: 10px 24px; margin-left: 16px; font-size: 0.9rem;">Orçamento</a>
             </nav>
             <button class="menu-btn" id="menuToggle" aria-label="Abrir menu" onclick="toggleMobileMenu()">☰</button>
         </div>
@@ -110,7 +110,7 @@
         </section>
 
         <!-- Diferenciais -->
-        <section class="section pt-0" id="diferenciais">
+        <section class="section" id="diferenciais" style="padding-top: 0;">
             <div class="container">
                 <div class="features-grid">
                     <article class="feature-card fade-up">
@@ -142,7 +142,7 @@
 
                 <div class="solutions-grid">
                     <a href="#" class="solution-card fade-up">
-                        <div class="solution-bg solution-img-1"></div>
+                        <div class="solution-bg" style="background-image: url('https://69ce88e456508b5dd5d65519.imgix.net/projeto-cadas-arquitetura-piracaia-36.jpg?auto=format&fit=crop&w=800&q=80');"></div>
                         <div class="solution-overlay"></div>
                         <div class="solution-content">
                             <span class="solution-tag">Linha Minimalista</span>
@@ -151,8 +151,8 @@
                         </div>
                     </a>
 
-                    <a href="#" class="solution-card fade-up delay-1">
-                        <div class="solution-bg solution-img-2"></div>
+                    <a href="#" class="solution-card fade-up" style="transition-delay: 0.1s;">
+                        <div class="solution-bg" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80');"></div>
                         <div class="solution-overlay"></div>
                         <div class="solution-content">
                             <span class="solution-tag">Linha Acústica</span>
@@ -161,8 +161,8 @@
                         </div>
                     </a>
 
-                    <a href="#" class="solution-card fade-up delay-2">
-                        <div class="solution-bg solution-img-3"></div>
+                    <a href="#" class="solution-card fade-up" style="transition-delay: 0.2s;">
+                        <div class="solution-bg" style="background-image: url('https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=800&q=80');"></div>
                         <div class="solution-overlay"></div>
                         <div class="solution-content">
                             <span class="solution-tag">Revestimentos</span>
@@ -244,10 +244,10 @@
         <section class="cta-section" id="contato">
             <div class="cta-glow"></div>
             <div class="container cta-content fade-up">
-                <span class="eyebrow center-full">Fale conosco</span>
+                <span class="eyebrow" style="justify-content: center; width: 100%;">Fale conosco</span>
                 <h2>Sua arquitetura exige uma execução inquestionável.</h2>
                 <p>Nossos engenheiros estão prontos para analisar suas plantas e propor soluções que materializam o conceito do seu projeto com segurança milimétrica.</p>
-                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary btn-cta-large">Enviar Projeto para Análise</a>
+                <a href="#orcamento" onclick="openModal(event)" class="btn btn-primary" style="padding: 20px 48px; font-size: 1.1rem;">Enviar Projeto para Análise</a>
             </div>
         </section>
     </main>
@@ -281,7 +281,7 @@
                     <input type="text" id="nome" class="form-control" required placeholder="Ex: João Silva" />
                 </div>
                 
-                <div class="form-group grid-2-col">
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                     <div>
                         <label for="email">E-mail *</label>
                         <input type="email" id="email" class="form-control" required placeholder="seu@email.com" />
@@ -293,11 +293,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="arquivo">Projeto Arquitetônico (PDF, DWG, Imagens)</label>
+                    <label>Projeto Arquitetônico (PDF, DWG, Imagens)</label>
                     <div class="file-upload">
                         <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                        <span class="upload-hint">Clique para selecionar ou arraste o arquivo</span>
-                        <input type="file" id="arquivo" onchange="updateFileName(this)" accept=".pdf,.dwg,.jpg,.png,.zip" aria-label="Anexar arquivo de projeto" />
+                        <span style="color: var(--text-muted); font-size: 0.9rem;">Clique para selecionar ou arraste o arquivo</span>
+                        <input type="file" id="arquivo" onchange="updateFileName(this)" accept=".pdf,.dwg,.jpg,.png,.zip" />
                         <div id="fileNameDisplay" class="file-name"></div>
                     </div>
                 </div>
@@ -307,7 +307,7 @@
                     <textarea id="mensagem" class="form-control" placeholder="Contextualize seu projeto, prazos ou especificações..."></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-full">Enviar Solicitação</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Solicitação</button>
             </form>
         </div>
     </div>
